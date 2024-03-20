@@ -1,7 +1,9 @@
 "use client";
 
+import { signUpUser } from "@/services/auth";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 type FieldType = {
@@ -11,16 +13,23 @@ type FieldType = {
 };
 
 const SigninComponent: React.FC = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const loading = false;
+  const router = useRouter();
 
-  const handleFormSubmit = (formData: any) => {
+  const handleFormSubmit = async (formData: any) => {
     console.log(formData);
+    try {
+      setLoading(true);
+      await signUpUser(formData);
+      setLoading(false);
+      router.push("/signin");
+    } catch (error) {}
   };
 
   return (
