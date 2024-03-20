@@ -1,7 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import React from "react";
-import { Button, Form, type FormProps, Input } from "antd";
+import { useForm } from "react-hook-form";
 
 type FieldType = {
   email?: string;
@@ -9,55 +10,87 @@ type FieldType = {
   remember?: string;
 };
 
-const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-  console.log("Success:", values);
+const SigninComponent: React.FC = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const loading = false;
+
+  const handleFormSubmit = (formData: any) => {
+    console.log(formData);
+  };
+
+  return (
+    <div className="w-screen h-screen flex justify-center items-center">
+      <div>
+        <form className="" onSubmit={handleSubmit(handleFormSubmit)}>
+          <section>
+            <Link href={"/"}>
+              <h1 className="text-3xl text-center my-2 font-bold hover:bg-base-200 p-2 rounded-lg">
+                SatsEye
+              </h1>
+            </Link>
+          </section>
+          <label className="form-control w-full max-w-xs">
+            <div className="label">
+              <span className="label-text">What is your Email?</span>
+              <span className="label-text-alt"></span>
+            </div>
+            <input
+              type="email"
+              placeholder="Type here"
+              className="input input-bordered w-full max-w-xs"
+              {...register("email")}
+              required
+            />
+            {errors.email && (
+              <small className="text-red-400">
+                {errors.email.message as string}
+              </small>
+            )}
+          </label>
+          <label className="form-control w-full max-w-xs">
+            <div className="label">
+              <span className="label-text">What is your password?</span>
+              <span className="label-text-alt"></span>
+            </div>
+            <input
+              type="password"
+              placeholder="Type here"
+              className="input input-bordered w-full max-w-xs"
+              {...register("password")}
+              required
+            />
+            {errors.password && (
+              <small className="text-red-400">
+                {errors.password.message as unknown as string}
+              </small>
+            )}
+            <div className="label">
+              <span className="label-text-alt">
+                Don't have account?{" "}
+                <a href="/signup" className="text-blue-500">
+                  Sign up
+                </a>
+              </span>
+            </div>
+          </label>
+          <div className="mt-5">
+            <button className="btn w-full" disabled={loading}>
+              {loading ? (
+                <span className="loading loading-infinity loading-md bg-white"></span>
+              ) : (
+                "Sign in"
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 };
-
-const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
-  console.log("Failed:", errorInfo);
-};
-
-const SigninComponent: React.FC = () => (
-  <div className="w-full h-svh flex justify-center items-center">
-    <Form
-      name="sign in"
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
-      style={{ minWidth: 600 }}
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      autoComplete="off"
-    >
-      <Form.Item<FieldType>
-        label="Username"
-        name="email"
-        rules={[
-          {
-            required: true,
-            message: "Please input your email!",
-            type: "email",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item<FieldType>
-        label="Password"
-        name="password"
-        rules={[{ required: true, message: "Please input your password!" }]}
-      >
-        <Input.Password />
-      </Form.Item>
-
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit" color="secondary">
-          Sign in
-        </Button>
-      </Form.Item>
-    </Form>
-  </div>
-);
 
 export default SigninComponent;

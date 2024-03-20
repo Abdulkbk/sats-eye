@@ -1,90 +1,132 @@
 "use client";
 
+import Link from "next/link";
 import React from "react";
-import { Button, Form, type FormProps, Input } from "antd";
+import { useForm } from "react-hook-form";
 
 type FieldType = {
-  name?: string;
-  email?: string;
-  password?: string;
+  username: string;
+  email: string;
+  password: string;
   phone?: string;
 };
 
-const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-  console.log("Success:", values);
+const SignupComponent: React.FC = () => {
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm();
+
+  const loading = false;
+
+  const handleFormSubmit = (formData: any) => {
+    console.log(formData);
+  };
+
+  return (
+    <div className="w-screen h-screen flex justify-center items-center">
+      <div>
+        <form className="" onSubmit={handleSubmit(handleFormSubmit)}>
+          <section>
+            <Link href={"/"}>
+              <h1 className="text-3xl text-center my-2 font-bold hover:bg-base-200 p-2 rounded-lg">
+                SatsEye
+              </h1>
+            </Link>
+          </section>
+          <label className="form-control w-full max-w-xs">
+            <div className="label">
+              <span className="label-text">Choose a Username</span>
+              <span className="label-text-alt"></span>
+            </div>
+            <input
+              placeholder="ex. JohnSats"
+              className="input input-bordered w-full max-w-xs"
+              {...register("username")}
+              required
+            />
+            {errors.username && (
+              <small className="text-red-400">
+                {errors.username.message as string}
+              </small>
+            )}
+          </label>
+          <label className="form-control w-full max-w-xs">
+            <div className="label">
+              <span className="label-text">What is your Email?</span>
+              <span className="label-text-alt"></span>
+            </div>
+            <input
+              type="email"
+              placeholder="Type here"
+              className="input input-bordered w-full max-w-xs"
+              {...register("email")}
+              required
+            />
+            {errors.email && (
+              <small className="text-red-400">
+                {errors.email.message as string}
+              </small>
+            )}
+          </label>
+          <label className="form-control w-full max-w-xs">
+            <div className="label">
+              <span className="label-text">What is your Phone number</span>
+              <span className="label-text-alt"></span>
+            </div>
+            <input
+              placeholder="ex. +234 901 234 5678"
+              className="input input-bordered w-full max-w-xs"
+              {...register("phone")}
+              required
+            />
+            {errors.phone && (
+              <small className="text-red-400">
+                {errors.phone.message as string}
+              </small>
+            )}
+          </label>
+          <label className="form-control w-full max-w-xs">
+            <div className="label">
+              <span className="label-text">What is your password?</span>
+              <span className="label-text-alt"></span>
+            </div>
+            <input
+              type="password"
+              placeholder="**********"
+              className="input input-bordered w-full max-w-xs"
+              {...register("password")}
+              required
+            />
+            {errors.password && (
+              <small className="text-red-400">
+                {errors.password.message as unknown as string}
+              </small>
+            )}
+            <div className="label">
+              <span className="label-text-alt">
+                Don't have account?{" "}
+                <a href="/signin" className="text-blue-500">
+                  Sign in
+                </a>
+              </span>
+            </div>
+          </label>
+          <div className="mt-5">
+            <button className="btn w-full" disabled={loading}>
+              {loading ? (
+                <span className="loading loading-infinity loading-md bg-white"></span>
+              ) : (
+                "Sign up"
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 };
-
-const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
-  console.log("Failed:", errorInfo);
-};
-
-const SignupComponent: React.FC = () => (
-  <div className="w-full h-svh flex justify-center items-center">
-    <Form
-      name="sign in"
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
-      style={{ minWidth: 600 }}
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      autoComplete="off"
-    >
-      <Form.Item<FieldType>
-        label="Name"
-        name="name"
-        rules={[
-          {
-            required: true,
-            message: "Please input your name!",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item<FieldType>
-        label="Email"
-        name="email"
-        rules={[
-          {
-            required: true,
-            message: "Please input your email!",
-            type: "email",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item<FieldType>
-        label="Phone"
-        name="phone"
-        rules={[
-          {
-            required: false,
-            message: "Please input your phone!",
-            type: "string",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item<FieldType>
-        label="Password"
-        name="password"
-        rules={[{ required: true, message: "Please input your password!" }]}
-      >
-        <Input.Password />
-      </Form.Item>
-
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit" color="secondary">
-          Sign up
-        </Button>
-      </Form.Item>
-    </Form>
-  </div>
-);
 
 export default SignupComponent;
