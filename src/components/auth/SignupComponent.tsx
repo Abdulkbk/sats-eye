@@ -115,7 +115,7 @@ const SignupComponent: React.FC = () => {
             )}
             <div className="label">
               <span className="label-text-alt">
-                Don't have account?{" "}
+                Don&apos;t have account?{" "}
                 <a href="/signin" className="text-blue-500">
                   Sign in
                 </a>
