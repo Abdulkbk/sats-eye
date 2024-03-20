@@ -44,7 +44,11 @@ const handleApiSuccess = (res: AxiosResponse) => {
   return res.data;
 };
 
-const handleApiError = (err: AxiosError) => {
+const handleApiError = (err: {
+  response?: AxiosResponse;
+  request?: any;
+  code?: string;
+}) => {
   let errorMessagge = "";
 
   // request was manually cancelled in a `useEffect` hook
@@ -52,12 +56,10 @@ const handleApiError = (err: AxiosError) => {
     return; // fail silently
   }
 
-  //   @ts-ignore
   if (err.response) {
     //   @ts-ignore
     const apiError: IApiErrorResponse = err.response.data;
     // client received an error response (5xx, 4xx)
-    //   @ts-ignore
     console.error(
       `Backend returned code ${err.code}:${apiError.statusCode}, ` +
         `body was: ${apiError.message}`,
@@ -65,7 +67,6 @@ const handleApiError = (err: AxiosError) => {
       apiError.data
     );
     errorMessagge = apiError.message;
-    //   @ts-ignore
   } else if (err.request) {
     // client never received a response, or request never left
     //   @ts-ignore
