@@ -1,5 +1,6 @@
 "use client";
 import { useGetLatestBlocks } from "@/services/blocks";
+import Link from "next/link";
 import React from "react";
 
 // interface IBlocks {
@@ -27,12 +28,14 @@ const BlockListTable = () => {
             </thead>
             <tbody>
               {data?.blocks.map((block) => (
-                <tr className="py-2">
-                  <td>{block.height}</td>
-                  <td>{block.time}</td>
-                  <td>{block.size}</td>
-                  <td>{block.weight}</td>
-                </tr>
+                <Link href={`/blocks/${block.height}`}>
+                  <tr className="py-2" key={block.height}>
+                    <td>{block.height}</td>
+                    <td>{block.time}</td>
+                    <td>{block.size}</td>
+                    <td>{block.weight}</td>
+                  </tr>
+                </Link>
               ))}
             </tbody>
           </table>

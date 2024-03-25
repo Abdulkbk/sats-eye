@@ -1,3 +1,4 @@
+import { useCreateTxAlert } from "@/services/transactions";
 import React from "react";
 import { useForm } from "react-hook-form";
 
@@ -10,12 +11,20 @@ const CreateAlertForm = () => {
   const {
     register,
     formState: { errors },
+    handleSubmit,
   } = useForm();
 
-  const loading = false;
+  const onSuccess = () => {};
+
+  const { mutate, isLoading } = useCreateTxAlert(onSuccess);
+
+  const handleFormSubmit = (formData: any) => {
+    console.log(formData);
+    mutate(formData);
+  };
 
   return (
-    <form className="">
+    <form className="" onSubmit={handleSubmit(handleFormSubmit)}>
       <label className="form-control w-full max-w-xs">
         <div className="label">
           <span className="label-text">Transaction Id</span>
@@ -52,8 +61,8 @@ const CreateAlertForm = () => {
         )}
       </label>
       <div className="mt-5">
-        <button className="btn w-full" disabled={loading}>
-          {loading ? (
+        <button className="btn w-full" disabled={isLoading}>
+          {isLoading ? (
             <span className="loading loading-infinity loading-md bg-white"></span>
           ) : (
             "Create Alert"

@@ -11,7 +11,7 @@ const ImportantInfo = () => {
       <section className="grid grid-cols-3 gap-4 text-center auto-cols-max">
         <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
           <span className="font-mono text-4xl">
-            <span>{data?.current_block_height.toLocaleString()}</span>
+            <span>{data?.current_block_height.toLocaleString() ?? "--"}</span>
           </span>
           Block Height
         </div>

@@ -9,7 +9,7 @@ const LogoutPage = () => {
   useEffect(() => {
     dispatch(clearUserData());
     removeAuthToken();
-  }, []);
+  }, [dispatch]);
   return <div>Logging out...</div>;
 };
 
