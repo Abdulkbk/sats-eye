@@ -28,14 +28,17 @@ const BlockListTable = () => {
             </thead>
             <tbody>
               {data?.blocks.map((block) => (
-                <Link href={`/blocks/${block.height}`}>
-                  <tr className="py-2" key={block.height}>
-                    <td>{block.height}</td>
-                    <td>{block.time}</td>
-                    <td>{block.size}</td>
-                    <td>{block.weight}</td>
-                  </tr>
-                </Link>
+                <tr className="py-2 hover:bg-base-200" key={block.height}>
+                  <td className="underline link link-primary">
+                    {" "}
+                    <Link href={`/blocks/${block.height}`}>
+                      {block.height}{" "}
+                    </Link>
+                  </td>
+                  <td>{block.time}</td>
+                  <td>{block.size}</td>
+                  <td>{block.weight}</td>
+                </tr>
               ))}
             </tbody>
           </table>
