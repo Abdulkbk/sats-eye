@@ -7,10 +7,10 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 type FieldType = {
-  username: string;
+  firstname: string;
+  lastname: string;
   email: string;
   password: string;
-  phone?: string;
 };
 
 const SignupComponent: React.FC = () => {
@@ -46,18 +46,35 @@ const SignupComponent: React.FC = () => {
           </section>
           <label className="form-control w-full max-w-xs">
             <div className="label">
-              <span className="label-text">Choose a Username</span>
+              <span className="label-text">First Name</span>
               <span className="label-text-alt"></span>
             </div>
             <input
-              placeholder="ex. JohnSats"
+              placeholder="ex. John"
               className="input input-bordered w-full max-w-xs"
-              {...register("username")}
+              {...register("firstname")}
               required
             />
-            {errors.username && (
+            {errors.firstname && (
               <small className="text-red-400">
-                {errors.username.message as string}
+                {errors.firstname.message as string}
+              </small>
+            )}
+          </label>
+          <label className="form-control w-full max-w-xs">
+            <div className="label">
+              <span className="label-text">Last Name</span>
+              <span className="label-text-alt"></span>
+            </div>
+            <input
+              placeholder="ex. Doe"
+              className="input input-bordered w-full max-w-xs"
+              {...register("lastname")}
+              required
+            />
+            {errors.lastname && (
+              <small className="text-red-400">
+                {errors.lastname.message as string}
               </small>
             )}
           </label>
@@ -76,23 +93,6 @@ const SignupComponent: React.FC = () => {
             {errors.email && (
               <small className="text-red-400">
                 {errors.email.message as string}
-              </small>
-            )}
-          </label>
-          <label className="form-control w-full max-w-xs">
-            <div className="label">
-              <span className="label-text">What is your Phone number</span>
-              <span className="label-text-alt"></span>
-            </div>
-            <input
-              placeholder="ex. +234 901 234 5678"
-              className="input input-bordered w-full max-w-xs"
-              {...register("phone")}
-              required
-            />
-            {errors.phone && (
-              <small className="text-red-400">
-                {errors.phone.message as string}
               </small>
             )}
           </label>

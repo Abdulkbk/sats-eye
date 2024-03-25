@@ -13,10 +13,13 @@ export interface SignInUserPayload {
 }
 
 export interface ISignIn {
-  accessToken: string;
+  firstname: string;
+  lastname: string;
+  email: string;
   id: string;
 }
 
 export interface ISignInResponse extends IApiResponse {
   data: ISignIn;
+  token: string;
 }

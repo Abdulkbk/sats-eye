@@ -3,6 +3,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import transactionReducer from "./slices/transaction";
+import userReducer from "./slices/user";
 
 const rootPersistConfig = {
   key: ROOT_DATA_KEY,
@@ -11,10 +12,10 @@ const rootPersistConfig = {
 
 const combinedReducers = combineReducers({
   transactions: transactionReducer,
+  user: userReducer,
 });
 
 const rootReducer: typeof combinedReducers = (state, action) => {
-  // @ts-ignore
   if (action.type === "user/setLogoutState") {
     storage.removeItem("persist:" + ROOT_DATA_KEY);
     return combinedReducers(undefined, action);

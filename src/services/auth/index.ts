@@ -21,21 +21,24 @@ export const saveAuthToken = (token: string) => {
 
 export const removeAuthToken = () => cookies.remove(USER_TOKEN_KEY);
 
-export const signInUser = async (data: SignInUserPayload) => {
-  const res: ISignInResponse = await Api.post<ISignInResponse>(
-    `${AUTH_API_BASE}/signin`,
-    data
-  );
-  saveAuthToken(res.data.accessToken);
+export const signInUser = async (
+  data: SignInUserPayload,
+  onSuccess: (data: any) => void
+) => {
+  const res: { data: ISignInResponse } = await Api.post(`/login`, data);
+  saveAuthToken(res.data.token);
+  console.log(res.data.data);
+  onSuccess(res.data.data);
   return res;
 };
 
 export const signUpUser = async (data: CreateUserPayload) => {
   try {
     const res: IApiSuccessResponse = await Api.post<IApiSuccessResponse>(
-      `${AUTH_API_BASE}/signup`,
+      `/register`,
       data
     );
+    console.log(res);
     return res;
   } catch (error) {
     throw error;

@@ -1,6 +1,8 @@
 "use client";
 
-import { signUpUser } from "@/services/auth";
+import { useAppDispatch } from "@/redux/hooks";
+import { signInUser } from "@/services/auth";
+import { updateUserData } from "@/store/slices/user";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -22,13 +24,19 @@ const SigninComponent: React.FC = () => {
 
   const router = useRouter();
 
+  const dispatch = useAppDispatch();
+
+  const onSuccess = (data: any) => {
+    dispatch(updateUserData(data));
+    setLoading(false);
+    router.push("/");
+  };
+
   const handleFormSubmit = async (formData: any) => {
     console.log(formData);
     try {
       setLoading(true);
-      await signUpUser(formData);
-      setLoading(false);
-      router.push("/signin");
+      await signInUser(formData, onSuccess);
     } catch (error) {}
   };
 

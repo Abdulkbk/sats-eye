@@ -1,8 +1,12 @@
+"use client";
+
+import { useAppSelector } from "@/redux/hooks";
 import Link from "next/link";
 import React from "react";
 import { RxAvatar } from "react-icons/rx";
 
 const Avatar = () => {
+  const { id } = useAppSelector((state) => state.user);
   return (
     <>
       <div className="flex-none">
@@ -16,12 +20,18 @@ const Avatar = () => {
             tabIndex={0}
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
-            <li>
-              <Link href={"/signin"}>Sign in</Link>
-            </li>
-            <li>
-              <Link href={"/signup"}>Sign up</Link>
-            </li>
+            {id ? (
+              <DashBoardButton />
+            ) : (
+              <>
+                <li>
+                  <Link href={"/signin"}>Sign in</Link>
+                </li>
+                <li>
+                  <Link href={"/signup"}>Sign up</Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>
@@ -30,3 +40,14 @@ const Avatar = () => {
 };
 
 export default Avatar;
+
+const DashBoardButton: React.FC = () => (
+  <>
+    <button>
+      <Link href={"/dashboard"}>Dashboard</Link>
+    </button>
+    <button>
+      <Link href={"/logout"}>Log out</Link>
+    </button>
+  </>
+);
