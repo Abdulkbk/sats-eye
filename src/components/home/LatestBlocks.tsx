@@ -1,30 +1,6 @@
 import React from "react";
-import BlockListTable from "../shared/BlockListTable";
 import Link from "next/link";
-
-const blocksData = [
-  {
-    height: 3,
-    timestamp: 1656688743,
-    transactions: 500,
-    size: 1762.99,
-    weight: 8892.12,
-  },
-  {
-    height: 2,
-    timestamp: 1656688743,
-    transactions: 500,
-    size: 1762.99,
-    weight: 8892.12,
-  },
-  {
-    height: 1,
-    timestamp: 1656688743,
-    transactions: 500,
-    size: 1762.99,
-    weight: 8892.12,
-  },
-];
+import BlockListTable from "../shared/BlockListTable";
 
 const LatestBlocks = () => {
   return (
@@ -34,27 +10,7 @@ const LatestBlocks = () => {
           Latest Blocks
         </h1>
       </section>
-      <section className="mt-1">
-        <div className="overflow-x-auto">
-          <table className="table table-zebra">
-            {/* head */}
-            <thead>
-              <tr>
-                <th>Height</th>
-                <th>Timestamp</th>
-                <th>Transactions</th>
-                <th>Size (KB)</th>
-                <th>Weight (KWU)</th>
-              </tr>
-            </thead>
-            <tbody>
-              {blocksData.map((data) => (
-                <BlockListTable key={data.height} data={data} />
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
+      <BlockListTable />
       <section className="bg-base-200 border-t-2 border-base-100  h-10 text-center">
         <Link href={"/blocks"} className="link link-primary">
           See more blocks

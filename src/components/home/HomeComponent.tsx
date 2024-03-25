@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import GeneralLayout from "../layout/GeneralLayout";
 import LatestTransaction from "./LatestTransaction";

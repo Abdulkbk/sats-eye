@@ -1,27 +1,43 @@
+"use client";
+import { useGetLatestBlocks } from "@/services/blocks";
 import React from "react";
 
-interface IBlocks {
-  height: number;
-  timestamp: number;
-  transactions: number;
-  size: number;
-  weight: number;
-}
+// interface IBlocks {
+//   height: number;
+//   time: number;
+//   size: number;
+//   weight: number;
+// }
 
-const BlockListTable = ({
-  data: { height, timestamp, transactions, size, weight },
-}: {
-  data: IBlocks;
-}) => {
+const BlockListTable = () => {
+  const { data, isLoading } = useGetLatestBlocks();
   return (
     <>
-      <tr className="py-2">
-        <td>{height}</td>
-        <td>{timestamp}</td>
-        <td>{transactions}</td>
-        <td>{size}</td>
-        <td>{weight}</td>
-      </tr>
+      <section className="mt-1">
+        <div className="overflow-x-auto">
+          <table className="table table-zebra">
+            {/* head */}
+            <thead>
+              <tr>
+                <th>Height</th>
+                <th>Timestamp</th>
+                <th>Size (KB)</th>
+                <th>Weight (KWU)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data?.blocks.map((block) => (
+                <tr className="py-2">
+                  <td>{block.height}</td>
+                  <td>{block.time}</td>
+                  <td>{block.size}</td>
+                  <td>{block.weight}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
     </>
   );
 };
