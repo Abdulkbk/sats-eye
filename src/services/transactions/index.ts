@@ -15,8 +15,16 @@ interface ITrx {
   time: number;
 }
 
+interface Subscriptions {
+  id: string;
+  status: boolean;
+  target_confirms: number;
+  tx_id: string;
+  created_at: string;
+}
+
 interface IGetTrxSubResponse {
-  blocks: ITrx[];
+  data: Subscriptions[];
 }
 
 interface ICreateTxAlertResponse {
@@ -65,9 +73,11 @@ const createTx = async (data: ICreateTxAlertPayload) => {
 };
 
 const getSubscribeTx = async () => {
-  const res: IGetTrxSubResponse = await Api.get(
-    `${TRX_ALERT_API_BASE}/subscribe`
-  );
+  console.log("getSubscribeTx");
+
+  const res: IGetTrxSubResponse = await Api.get(`${TRX_ALERT_API_BASE}`);
+  console.log("response", res);
+
   return res;
 };
 
@@ -90,7 +100,6 @@ export const useGetSubscribeTx = (
   options: UseQueryOptions<IGetTrxSubResponse, string, IGetTrxSubResponse> = {}
 ) =>
   useSatEyeQuery<IGetTrxSubResponse, string, IGetTrxSubResponse>({
-    queryKey: ["subscribe-trx"],
     queryFn: getSubscribeTx,
     ...options,
   });

@@ -7,7 +7,6 @@ import { RxAvatar } from "react-icons/rx";
 
 const Avatar = () => {
   const { id } = useAppSelector((state) => state.user);
-  console.log(id);
 
   return (
     <>
