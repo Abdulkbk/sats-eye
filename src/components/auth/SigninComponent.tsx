@@ -37,7 +37,9 @@ const SigninComponent: React.FC = () => {
     try {
       setLoading(true);
       await signInUser(formData, onSuccess);
-    } catch (error) {}
+    } catch (error) {
+      setLoading(false);
+    }
   };
 
   return (

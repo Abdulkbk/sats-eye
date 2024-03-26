@@ -7,6 +7,8 @@ import { RxAvatar } from "react-icons/rx";
 
 const Avatar = () => {
   const { id } = useAppSelector((state) => state.user);
+  console.log(id);
+
   return (
     <>
       <div className="flex-none">
@@ -20,7 +22,7 @@ const Avatar = () => {
             tabIndex={0}
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
-            {id ? (
+            {id !== "" ? (
               <DashBoardButton />
             ) : (
               <>

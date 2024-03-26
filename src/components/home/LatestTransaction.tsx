@@ -1,6 +1,7 @@
 import React from "react";
 import TransactionListCard from "../shared/TransactionListCard";
 import Link from "next/link";
+import { useGetLatestTrxs } from "@/services/transactions";
 
 const data = [
   { txid: "hsgaufqwejcbsanvlknlfv", value: 1000, size: 145, fee: 40.0 },
@@ -9,6 +10,9 @@ const data = [
 ];
 
 const LatestTransaction = () => {
+  const { data: d } = useGetLatestTrxs();
+  console.log("data", d);
+
   return (
     <main className="block bg-base-100 mt-5 px-5 mb-6">
       <section className="">

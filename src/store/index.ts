@@ -16,7 +16,7 @@ const combinedReducers = combineReducers({
 });
 
 const rootReducer: typeof combinedReducers = (state, action) => {
-  if (action.type === "user/setLogoutState") {
+  if (action.type === "user/clearUserData") {
     storage.removeItem("persist:" + ROOT_DATA_KEY);
     return combinedReducers(undefined, action);
   }

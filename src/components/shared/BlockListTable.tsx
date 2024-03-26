@@ -1,6 +1,7 @@
 "use client";
 import { useGetLatestBlocks } from "@/services/blocks";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 // interface IBlocks {
@@ -12,6 +13,7 @@ import React from "react";
 
 const BlockListTable = () => {
   const { data, isLoading } = useGetLatestBlocks();
+  const router = useRouter();
   return (
     <>
       <section className="mt-1">
@@ -28,7 +30,11 @@ const BlockListTable = () => {
             </thead>
             <tbody>
               {data?.blocks.map((block) => (
-                <tr className="py-2 hover:bg-base-200" key={block.height}>
+                <tr
+                  className="py-2 hover:bg-base-200 cursor-pointer"
+                  key={block.height}
+                  onClick={() => router.push(`/blocks/${block.height}`)}
+                >
                   <td className="underline link link-primary">
                     {" "}
                     <Link href={`/blocks/${block.height}`}>

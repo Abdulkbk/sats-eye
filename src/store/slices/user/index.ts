@@ -21,7 +21,10 @@ const transactionSlice = createSlice({
       state.id = id;
     },
     clearUserData: (state) => {
-      state = initalUserState;
+      state.firstname = "";
+      state.lastname = "";
+      state.email = "";
+      state.id = "";
     },
   },
 });
