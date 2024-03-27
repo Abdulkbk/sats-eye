@@ -67,15 +67,13 @@ const createTx = async (data: ICreateTxAlertPayload) => {
     `${TRX_ALERT_API_BASE}/create`,
     data
   );
-  console.log(res);
-
   return res;
 };
 
-const getSubscribeTx = async () => {
+export const getSubscribeTx = async () => {
   console.log("getSubscribeTx");
 
-  const res: IGetTrxSubResponse = await Api.get(`${TRX_ALERT_API_BASE}`);
+  const res: IGetTrxSubResponse = await Api.get(`${TRX_ALERT_API_BASE}/`);
   console.log("response", res);
 
   return res;
@@ -96,12 +94,10 @@ export const useCreateTxAlert = (onSuccess: () => void) =>
     onSuccess,
   });
 
-export const useGetSubscribeTx = (
-  options: UseQueryOptions<IGetTrxSubResponse, string, IGetTrxSubResponse> = {}
-) =>
+export const useGetSubscribeTx = () =>
   useSatEyeQuery<IGetTrxSubResponse, string, IGetTrxSubResponse>({
+    queryKey: "subscriptions",
     queryFn: getSubscribeTx,
-    ...options,
   });
 
 export const useGetTransactionByTxid = (

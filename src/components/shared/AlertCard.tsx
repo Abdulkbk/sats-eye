@@ -1,13 +1,15 @@
 import React from "react";
 
+interface Subscriptions {
+  id: string;
+  status: boolean;
+  target_confirms: number;
+  tx_id: string;
+  created_at: string;
+}
+
 interface IAlert {
-  data: {
-    id: string;
-    status: boolean;
-    target_confirms: string;
-    tx_id: string;
-    created_at: string;
-  };
+  data: Subscriptions;
 }
 
 const AlertCard = ({ data }: IAlert) => {

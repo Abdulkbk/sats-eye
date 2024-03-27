@@ -37,7 +37,7 @@ const MyAlerts = () => {
 
   return (
     <div className="mt-4 p-5">
-      {datat.map((alert) => (
+      {data?.data.map((alert) => (
         <AlertCard data={alert} />
       ))}
     </div>
