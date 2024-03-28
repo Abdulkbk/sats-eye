@@ -5,8 +5,14 @@ import React from "react";
 import { BiBox } from "react-icons/bi";
 import { FiBox } from "react-icons/fi";
 
-const SingleBlockComponent = ({ blockheight }: { blockheight: number }) => {
-  const { data } = useGetBlockByHeight(blockheight);
+const SingleBlockComponent = ({
+  blockheight,
+  isHash = false,
+}: {
+  blockheight: string;
+  isHash?: boolean;
+}) => {
+  const { data } = useGetBlockByHeight(blockheight, isHash);
   console.log(data);
 
   return (

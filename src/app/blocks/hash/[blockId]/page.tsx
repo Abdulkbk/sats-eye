@@ -9,7 +9,7 @@ const SingleBlockPage = ({
 }) => {
   return (
     <GeneralLayout>
-      <SingleBlockComponent blockheight={blockId} />
+      <SingleBlockComponent blockheight={blockId} isHash />
     </GeneralLayout>
   );
 };

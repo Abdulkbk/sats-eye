@@ -36,7 +36,7 @@ interface ICreateTxAlertPayload {
   target_confirms: number;
 }
 
-interface IGetTrxsResponse {
+interface ITrx {
   hex: string;
   txid: string;
   hash: string;
@@ -48,6 +48,10 @@ interface IGetTrxsResponse {
   vin: [];
   confirmations: number;
   time: number;
+}
+
+interface IGetTrxsResponse {
+  transaction: ITrx;
 }
 
 const getLatestTrx = async () => {

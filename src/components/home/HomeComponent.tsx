@@ -10,8 +10,8 @@ const HomeComponent = () => {
     <GeneralLayout>
       <main className="">
         <ImportantInfo />
-        <LatestTransaction />
         <LatestBlocks />
+        <LatestTransaction />
       </main>
     </GeneralLayout>
   );

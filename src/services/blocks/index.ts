@@ -40,8 +40,9 @@ const getLatestBlocks = async () => {
   return res;
 };
 
-const getBlockByHeight = async (height: number) => {
-  const res: IGetSingleBlockResponse = await Api.get(`block/height/${height}`);
+const getBlockByHeight = async (height: string, isHash: boolean) => {
+  const url = isHash ? `block/${height}` : `block/height/${height}`;
+  const res: IGetSingleBlockResponse = await Api.get(`${url}`);
   return res;
 };
 
@@ -55,7 +56,8 @@ export const useGetLatestBlocks = (
   });
 
 export const useGetBlockByHeight = (
-  height: number,
+  height: string,
+  isHash: boolean,
   options: UseQueryOptions<
     IGetSingleBlockResponse,
     string,
@@ -64,5 +66,5 @@ export const useGetBlockByHeight = (
 ) =>
   useSatEyeQuery<IGetSingleBlockResponse, string, IGetSingleBlockResponse>({
     queryKey: ["single-block", height],
-    queryFn: () => getBlockByHeight(height),
+    queryFn: () => getBlockByHeight(height, isHash),
   });

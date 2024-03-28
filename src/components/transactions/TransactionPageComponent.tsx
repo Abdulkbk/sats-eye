@@ -1,13 +1,18 @@
+"use client";
 import React from "react";
 import TransactionListCard from "../shared/TransactionListCard";
+import { useGetLatestTrxs } from "@/services/transactions";
 
-const data = [
+const datat = [
   { txid: "hsgaufqwejcbsanvlknlfv", value: 1000, size: 145, fee: 40.0 },
   { txid: "hsgaufqwejcbsanvlknlfv", value: 1000, size: 145, fee: 40.0 },
   { txid: "hsgaufqwejcbsanvlknlfv", value: 1000, size: 145, fee: 40.0 },
 ];
 
 const TransactionPageComponent = () => {
+  const { data } = useGetLatestTrxs();
+  console.log(data);
+
   return (
     <main className="block bg-base-100 mt-5 px-5 mb-6">
       <section className="">
@@ -15,7 +20,7 @@ const TransactionPageComponent = () => {
           Transactions
         </h1>
         <section className="mt-1">
-          {data.map((data) => (
+          {datat.map((data) => (
             <TransactionListCard key={data.txid} data={data} />
           ))}
         </section>
